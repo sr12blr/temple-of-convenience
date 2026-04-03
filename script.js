@@ -113,8 +113,8 @@ function handleAction(type) {
         el.style.display = el.style.display === 'none' ? 'block' : 'none';
         return; // stay on the page
     }
-    // Both 'accept' and 'think' go back to prayers
-    showScreen('prayers');
+    // Both 'accept' and 'think' go to the thank you screen
+    showScreen('thankyou');
 }
 
 // =============================================

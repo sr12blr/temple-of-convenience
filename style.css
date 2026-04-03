@@ -286,6 +286,23 @@ body {
     border-color: var(--red-sacrifice);
 }
 
+/* === THANK YOU SCREEN === */
+.thankyou-content {
+    text-align: center;
+    max-width: 600px;
+    padding: 40px 24px;
+}
+
+.thankyou-title {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
 /* === RECORD OWN BUTTON === */
 .record-own-wrap {
     margin-top: 40px;
