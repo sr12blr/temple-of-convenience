@@ -87,6 +87,9 @@ function showScreen(id) {
     screen.scrollTop = 0;
     window.scrollTo(0, 0);
 
+    // Show header on all screens except landing
+    document.getElementById('siteHeader').style.display = id === 'landing' ? 'none' : 'block';
+
     if (id === 'prayers') {
         renderTiles();
     }

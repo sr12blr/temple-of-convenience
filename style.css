@@ -26,6 +26,35 @@ body {
     overflow-x: hidden;
 }
 
+/* === SITE HEADER === */
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    text-align: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(4px);
+}
+
+.header-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.header-title:hover {
+    color: var(--gold);
+}
+
 /* === SCREENS === */
 .screen {
     display: none;
@@ -39,6 +68,11 @@ body {
     justify-content: center;
     animation: fadeIn 0.6s ease-out;
     padding: 40px 0;
+}
+
+/* Add top padding for screens with the fixed header */
+#prayers.active, #sacrifice.active, #thankyou.active {
+    padding-top: 80px;
 }
 
 @keyframes fadeIn {
