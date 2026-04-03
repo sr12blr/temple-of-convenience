@@ -172,11 +172,24 @@ body {
 
 .prayer-tiles {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 14px;
     padding: 0 10px;
     width: 100%;
 }
+
+/* Size classes assigned by JS based on position */
+.card-lg { grid-column: span 4; }
+.card-md { grid-column: span 3; }
+.card-sm { grid-column: span 2; }
+.card-xl { grid-column: span 6; }
+.card-sq { grid-column: span 2; }
+
+.card-lg .card-image { height: 195px; }
+.card-md .card-image { height: 210px; }
+.card-sm .card-image { height: 170px; }
+.card-xl .card-image { height: 220px; }
+.card-sq .card-image { height: 240px; }
 
 .prayer-card {
     background: var(--bg-panel);
@@ -214,9 +227,9 @@ body {
 }
 
 .card-label {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 400;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 300;
     color: var(--text-light);
     padding: 14px 16px;
     line-height: 1.5;
@@ -551,15 +564,12 @@ body {
         font-size: 1.2rem;
     }
 
-    .prayer-tile {
-        font-size: 0.8rem;
-        padding: 14px 18px;
+    .prayer-tiles {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .prayer-tile.size-s,
-    .prayer-tile.size-m,
-    .prayer-tile.size-l {
-        max-width: 100%;
+    .card-lg, .card-md, .card-sm, .card-xl {
+        grid-column: span 1;
     }
 
     .sacrifice-text {

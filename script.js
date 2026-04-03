@@ -1,19 +1,19 @@
 const DATA = [
     {
         prayer: "10-minute grocery delivery",
-        image: "images/01-delivery.jpg",
+        image: "images/01-delivery.png",
         sacrifice: "2,000+ deaths per year from floods made worse by emissions.",
         connection: "Hyper-fast delivery means more warehouses, more diesel vans, more packaging, more emissions. Those emissions heat the planet. Hotter oceans mean heavier monsoons. Heavier monsoons mean floods. 2,000+ people died in Indian floods last year. Your 10-minute dal delivery is a tiny, invisible vote for that."
     },
     {
-        prayer: "Single-use plastic bags",
+        prayer: "Bottled water",
         image: "images/02-plastic.jpg",
         sacrifice: "Micro-plastics in breast milk. Your future children\u2019s first meal will be fortified with plastics.",
-        connection: "That plastic bag breaks down but never disappears. It becomes micro-plastic. It enters the soil, the water, the fish, your food. It\u2019s been found in human blood, lungs, and now \u2014 breast milk. The very first meal a newborn drinks is already contaminated. The bag you used for 12 minutes will outlive your grandchildren."
+        connection: "That plastic bottle leaches microplastics directly into the water you\u2019re drinking. Studies have found an average of 240 microplastic particles in every litre of bottled water. They enter your blood, your organs, your food chain. Microplastics have now been found in human breast milk \u2014 meaning a newborn\u2019s very first meal is already contaminated. You switched from tap water to stay safe. You didn\u2019t."
     },
     {
         prayer: "Fast fashion: Trendy and light on the pocket!",
-        image: "images/03-fashion.jpg",
+        image: "images/03-fashion.avif",
         sacrifice: "Your city has run out of water. No running water in your tap for a week.",
         connection: "That \u20B9499 dress needs 10,000 litres of water to produce. Multiply that by millions of units churned out every season. Textile factories drain groundwater and dump toxic dye into rivers. Your city\u2019s water table drops. One summer, your tap runs dry. It\u2019s not a drought \u2014 it\u2019s a budget dress."
     },
@@ -73,14 +73,21 @@ function shuffle(arr) {
     return a;
 }
 
+// Fixed layout for 10 cards in a 6-col grid (matches DATA order)
+// Row 1: sq(2) + sm(2) + sm(2) = 6  [delivery square, water, fashion]
+// Row 2: md(3) + md(3) = 6           [AC, fruit]
+// Row 3: sm(2) + lg(4) = 6           [car, streaming]
+// Row 4: lg(4) + sm(2) = 6           [snacks, phone]
+// Row 5: xl(6) = 6                   [glass buildings]
+const CARD_SIZES = ['sq', 'sm', 'sm', 'md', 'md', 'sm', 'lg', 'lg', 'sm', 'xl'];
+
 // Render prayer cards with images
 function renderTiles() {
     const container = document.getElementById('prayerTiles');
     container.innerHTML = '';
-    const shuffled = shuffle(DATA);
-    shuffled.forEach((item) => {
+    DATA.forEach((item, i) => {
         const card = document.createElement('button');
-        card.className = 'prayer-card';
+        card.className = 'prayer-card card-' + CARD_SIZES[i];
         card.innerHTML = `
             <div class="card-image" style="background-image: url('${item.image}')"></div>
             <div class="card-label">${item.prayer}</div>
