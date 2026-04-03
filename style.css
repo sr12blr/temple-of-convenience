@@ -84,13 +84,13 @@ body {
 .landing-content {
     text-align: center;
     max-width: 600px;
-    padding: 40px 24px;
+    padding: 20px 24px;
 }
 
 .temple-icon {
     font-size: 48px;
     color: var(--gold-dim);
-    margin-bottom: 24px;
+    margin-bottom: 12px;
     opacity: 0.7;
 }
 
@@ -102,13 +102,13 @@ body {
     letter-spacing: 3px;
     text-transform: uppercase;
     line-height: 1.1;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 }
 
 .divider {
     color: var(--gold-dim);
     font-size: 1.2rem;
-    margin: 24px 0;
+    margin: 12px 0;
     opacity: 0.5;
 }
 
@@ -119,19 +119,25 @@ body {
     color: var(--gold-dim);
     letter-spacing: 4px;
     text-transform: uppercase;
-    margin-bottom: 28px;
+    margin-bottom: 14px;
 }
 
 .goddess-text {
     font-size: 1.25rem;
-    line-height: 1.9;
+    line-height: 1.6;
     font-style: italic;
     color: var(--text-light);
-    margin-bottom: 40px;
+    margin-bottom: 24px;
 }
 
 .goddess-text p {
-    margin-bottom: 4px;
+    margin-bottom: 2px;
+}
+
+.goddess-text br {
+    display: block;
+    content: '';
+    margin-top: 8px;
 }
 
 .enter-btn {
