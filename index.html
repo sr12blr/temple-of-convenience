@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temple of Convenience</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- SCREEN 1: Landing -->
+    <div id="landing" class="screen active">
+        <div class="landing-content">
+            <div class="temple-icon">&#9764;</div>
+            <h1 class="site-title">Temple of Convenience</h1>
+            <div class="divider">&#10043;</div>
+            <h2 class="goddess-title">The One True Goddess</h2>
+            <div class="goddess-text">
+                <p>Everything shall be sacrificed at the Altar of The One True Goddess</p>
+                <p>She brings us Comfort, Delight and Numbness</p>
+                <p>All She asks for is our future</p>
+                <p>And that of our kids.</p>
+            </div>
+            <button class="enter-btn" onclick="showScreen('prayers')">Enter the Temple</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 2: Prayer Selection -->
+    <div id="prayers" class="screen">
+        <div class="prayers-content">
+            <h2 class="prayers-heading">What are you praying for today?</h2>
+            <div class="prayer-tiles" id="prayerTiles">
+                <!-- Tiles injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN 3: Sacrifice Reveal -->
+    <div id="sacrifice" class="screen">
+        <div class="sacrifice-content">
+            <div class="sacrifice-label">The Goddess has heard your prayer.</div>
+            <div class="prayer-echo" id="prayerEcho"></div>
+            <div class="sacrifice-divider">&#10043;</div>
+            <div class="sacrifice-label">The sacrifice needed:</div>
+            <div class="sacrifice-text" id="sacrificeText"></div>
+            <div class="connection-text" id="connectionText" style="display:none;"></div>
+            <div class="sacrifice-actions">
+                <button class="action-btn accept" onclick="handleAction('accept')">Sounds good</button>
+                <button class="action-btn connection" onclick="handleAction('connection')">What's the connection?</button>
+                <button class="action-btn think" onclick="handleAction('think')">Umm... I'll have to think about it</button>
+            </div>
+            <div class="record-own-wrap">
+                <button class="record-own-btn" onclick="openModal()">
+                    ✦ I would like to record a different prayer and sacrifice
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Submit your own prayer + sacrifice -->
+    <div id="submitModal" class="modal-overlay" style="display:none;" onclick="closeModalOnBackdrop(event)">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal()">&#10005;</button>
+            <div class="modal-title">Offer your own</div>
+            <div class="modal-subtitle">What convenience do you pray for?<br>What is the world paying for it?</div>
+
+            <div id="modalForm">
+                <div class="form-group">
+                    <label class="form-label">Your Prayer</label>
+                    <textarea id="inputPrayer" class="form-input" rows="2" placeholder="e.g. Cheap flights for weekend getaways"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">The Sacrifice</label>
+                    <textarea id="inputSacrifice" class="form-input" rows="3" placeholder="e.g. Your coastal hometown will be underwater by 2050"></textarea>
+                </div>
+                <button class="modal-submit-btn" onclick="submitOffer()">Offer it to the Goddess</button>
+            </div>
+
+            <div id="modalSuccess" style="display:none;">
+                <div class="modal-success-icon">&#10043;</div>
+                <div class="modal-success-text">The Goddess has received your offering.</div>
+                <div class="modal-success-sub">Thank you for bearing witness.</div>
+                <button class="modal-submit-btn" style="margin-top:24px;" onclick="closeModal()">Return</button>
+            </div>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
