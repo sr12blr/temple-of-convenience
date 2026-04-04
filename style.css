@@ -460,6 +460,10 @@ body {
     margin-top: 40px;
     padding-top: 32px;
     border-top: 1px solid rgba(201, 168, 76, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
 }
 
 .record-own-btn {
