@@ -13,7 +13,14 @@
 
     <!-- PERSISTENT HEADER (hidden on landing) -->
     <header id="siteHeader" class="site-header" style="display:none;">
-        <span class="header-title" onclick="showScreen('landing')">Temple of Convenience</span>
+        <div class="header-inner">
+            <span class="header-title" onclick="showScreen('landing')">Temple of Convenience</span>
+            <nav class="header-nav">
+                <span class="header-nav-link" onclick="showScreen('prayers')">Pray</span>
+                <span class="header-nav-sep">·</span>
+                <span class="header-nav-link" onclick="showScreen('offerings')">All Offerings</span>
+            </nav>
+        </div>
     </header>
 
     <!-- SCREEN 1: Landing -->
@@ -47,22 +54,35 @@
     <!-- SCREEN 3: Sacrifice Reveal -->
     <div id="sacrifice" class="screen">
         <div class="sacrifice-content">
-            <div class="sacrifice-label">The Goddess has heard your prayer.</div>
-            <div class="prayer-echo" id="prayerEcho"></div>
-            <div class="sacrifice-divider">&#10043;</div>
-            <div class="sacrifice-label">The sacrifice needed:</div>
-            <div class="sacrifice-text" id="sacrificeText"></div>
-            <div class="connection-text" id="connectionText" style="display:none;"></div>
-            <div class="sacrifice-actions">
-                <button class="action-btn accept" onclick="handleAction('accept')">Sounds good</button>
-                <button class="action-btn connection" onclick="handleAction('connection')">What's the connection?</button>
-                <button class="action-btn think" onclick="handleAction('think')">Umm... I'll have to think about it</button>
+
+            <!-- Phase 1: Reward (shown immediately with confetti) -->
+            <div id="rewardPhase">
+                <div class="sacrifice-label">The Goddess has heard your prayer.</div>
+                <div class="reward-sublabel">Here's your reward:</div>
+                <div class="reward-card">
+                    <div class="reward-card-image" id="rewardImage"></div>
+                    <div class="prayer-echo" id="prayerEcho"></div>
+                </div>
             </div>
-            <div class="record-own-wrap">
-                <button class="record-own-btn" onclick="openModal()">
-                    ✦ I would like to record a different prayer and sacrifice
-                </button>
+
+            <!-- Phase 2: Offering (revealed after 2s delay) -->
+            <div id="offeringPhase" style="display:none;">
+                <div class="sacrifice-divider">&#10043;</div>
+                <div class="sacrifice-label">Your offering to the Goddess:</div>
+                <div class="sacrifice-text" id="sacrificeText"></div>
+                <div class="connection-text" id="connectionText" style="display:none;"></div>
+                <div class="sacrifice-actions">
+                    <button class="action-btn accept" onclick="handleAction('accept')">Sounds good</button>
+                    <button class="action-btn connection" onclick="handleAction('connection')">I don't understand</button>
+                    <button class="action-btn think" onclick="handleAction('think')">I'll pass</button>
+                </div>
+                <div class="record-own-wrap">
+                    <button class="record-own-btn" onclick="openModal()">
+                        ✦ I would like to record a different prayer and sacrifice
+                    </button>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -74,6 +94,16 @@
             <h2 class="thankyou-title">Thank you for your devotion<br>to the Goddess of Convenience</h2>
             <div class="divider">&#10043;</div>
             <button class="enter-btn" onclick="showScreen('prayers')">Go back to the Temple</button>
+        </div>
+    </div>
+
+    <!-- SCREEN 5: Wall of Offerings -->
+    <div id="offerings" class="screen">
+        <div class="offerings-content">
+            <h2 class="offerings-heading">The Wall of Offerings</h2>
+            <div class="offerings-wall" id="offeringsWall">
+                <!-- Cards injected by JS -->
+            </div>
         </div>
     </div>
 
@@ -105,6 +135,7 @@
         </div>
     </div>
 
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

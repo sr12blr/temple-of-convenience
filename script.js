@@ -111,20 +111,67 @@ function showScreen(id) {
     if (id === 'prayers') {
         renderTiles();
     }
+    if (id === 'offerings') {
+        renderOfferings();
+    }
 }
 
 // Select a prayer
 function selectPrayer(item) {
     currentItem = item;
+
+    // Populate content
     document.getElementById('prayerEcho').textContent = `"${item.prayer}"`;
+    document.getElementById('rewardImage').style.backgroundImage = `url('${item.image}')`;
     document.getElementById('sacrificeText').textContent = item.sacrifice;
     document.getElementById('connectionText').textContent = item.connection;
     document.getElementById('connectionText').style.display = 'none';
-
-    // Reset the connection button visibility
     document.querySelector('.action-btn.connection').style.display = '';
 
+    // Reset offering phase
+    const offeringPhase = document.getElementById('offeringPhase');
+    offeringPhase.style.display = 'none';
+    offeringPhase.classList.remove('fade-in');
+
     showScreen('sacrifice');
+
+    // Fire gold confetti burst
+    setTimeout(() => {
+        confetti({
+            particleCount: 100,
+            spread: 65,
+            origin: { y: 0.35 },
+            colors: ['#c9a84c', '#e8c84a', '#d4a030', '#f0d878', '#b8942a']
+        });
+        // Second burst from sides
+        confetti({
+            particleCount: 40,
+            angle: 60,
+            spread: 55,
+            origin: { x: 0, y: 0.45 },
+            colors: ['#c9a84c', '#e8c84a', '#f0d878']
+        });
+        confetti({
+            particleCount: 40,
+            angle: 120,
+            spread: 55,
+            origin: { x: 1, y: 0.45 },
+            colors: ['#c9a84c', '#e8c84a', '#f0d878']
+        });
+    }, 400);
+
+    // Reveal offering after 2.2 seconds, then scroll it into view
+    setTimeout(() => {
+        offeringPhase.style.display = 'block';
+        // Small delay so display:block is painted before animation starts
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                offeringPhase.classList.add('fade-in');
+                // Scroll offering into view so it takes center stage
+                offeringPhase.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    }, 2400);
 }
 
 // Handle action buttons
@@ -192,6 +239,35 @@ function submitOffer() {
     // Show success state immediately (don't wait for response)
     document.getElementById('modalForm').style.display = 'none';
     document.getElementById('modalSuccess').style.display = 'block';
+}
+
+// Offering wall color palette — warm dark tones, one per card
+const OFFERING_COLORS = [
+    '#c0392b',  // red
+    '#7b241c',  // deep maroon
+    '#8e44ad',  // purple
+    '#d35400',  // burnt orange
+    '#922b21',  // dark crimson
+    '#6c3483',  // violet
+    '#a04000',  // rust
+    '#c0392b',  // red (repeat with different card)
+    '#9b59b6',  // medium purple
+    '#ca6f1e',  // amber-orange
+];
+
+// Render wall of offerings (masonry, sacrifice text only)
+function renderOfferings() {
+    const container = document.getElementById('offeringsWall');
+    container.innerHTML = '';
+    DATA.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'offering-card';
+        card.innerHTML = `
+            <div class="offering-label">${item.prayer}</div>
+            <div class="offering-text" style="color:${OFFERING_COLORS[i]}">${item.sacrifice}</div>
+        `;
+        container.appendChild(card);
+    });
 }
 
 // Init
