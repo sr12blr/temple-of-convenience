@@ -97,8 +97,19 @@ function renderTiles() {
     });
 }
 
+// Send an event to Google Analytics (no-op if gtag failed to load, e.g. ad blockers)
+function track(name, params) {
+    if (typeof gtag === 'function') gtag('event', name, params);
+}
+
 // Show a screen
 function showScreen(id) {
+    // Screens are all on one page, so report each one as a virtual page view
+    track('page_view', {
+        page_title: id,
+        page_location: location.origin + location.pathname + '#' + id
+    });
+
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     const screen = document.getElementById(id);
     screen.classList.add('active');
@@ -119,6 +130,7 @@ function showScreen(id) {
 // Select a prayer
 function selectPrayer(item) {
     currentItem = item;
+    track('select_prayer', { prayer: item.prayer });
 
     // Populate content
     document.getElementById('prayerEcho').textContent = `"${item.prayer}"`;
@@ -176,6 +188,7 @@ function selectPrayer(item) {
 
 // Handle action buttons
 function handleAction(type) {
+    track('sacrifice_response', { response: type, prayer: currentItem && currentItem.prayer });
     if (type === 'connection') {
         const el = document.getElementById('connectionText');
         el.style.display = el.style.display === 'none' ? 'block' : 'none';
@@ -198,6 +211,7 @@ const ENTRY_SACRIFICE = 'entry.336493160';
 // MODAL
 // =============================================
 function openModal() {
+    track('open_offering_form');
     document.getElementById('submitModal').style.display = 'flex';
     document.getElementById('modalForm').style.display = 'block';
     document.getElementById('modalSuccess').style.display = 'none';
@@ -235,6 +249,9 @@ function submitOffer() {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: body.toString()
     }).catch(() => {}); // no-cors always returns opaque response — ignore errors
+
+    // Don't send what people typed — just that they submitted
+    track('submit_offering');
 
     // Show success state immediately (don't wait for response)
     document.getElementById('modalForm').style.display = 'none';
